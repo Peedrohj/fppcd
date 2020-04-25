@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SharedCounterServerRunnable implements Runnable {
 	private Socket client;
-	private int counter = 0;
+	private static int counter = 0;
 	private DataInputStream inputStream;
 	private DataOutputStream outputStream;
 	private Semaphore mutex = new Semaphore(1);
