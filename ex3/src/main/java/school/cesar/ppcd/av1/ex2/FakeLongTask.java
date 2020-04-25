@@ -7,9 +7,13 @@ public class FakeLongTask implements Runnable {
 	private static final long ONE_MINUTE = 60 * 1000;
 
 	public void run() {
-		nap(ONE_MINUTE);
-		done = true;
+		synchronized (this) {
+			nap(ONE_MINUTE);
+			done = true;
+			notify();
+		}
 	}
+
 	public boolean isDone() {
 		return done;
 	}

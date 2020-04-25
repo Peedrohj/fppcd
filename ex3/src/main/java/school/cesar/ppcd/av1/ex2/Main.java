@@ -5,9 +5,15 @@ public class Main {
 		FakeLongTask fakeLongTask = new FakeLongTask();
 		Thread threadFakeLongTask = new Thread(fakeLongTask);
 		threadFakeLongTask.start();
-		while (!fakeLongTask.isDone()) {
-			System.out.println("waiting...");
+
+		synchronized (threadFakeLongTask) {
+			try {
+				System.out.println("waiting...");
+				threadFakeLongTask.wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			System.out.println("done!");
 		}
-		System.out.println("done!");
 	}
 }
